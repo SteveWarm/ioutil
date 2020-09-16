@@ -1,3 +1,3 @@
-module ioutil
+module github.com/woodada/ioutil
 
-go 1.12
+go 1.13
