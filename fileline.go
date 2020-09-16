@@ -19,7 +19,7 @@ func NewCachedFileLine() func(key string) string {
             return v
         }
 
-        _, file, line, ok := runtime.Caller(2) // decorate + log + public function.
+        _, file, line, ok := runtime.Caller(1) // decorate + log + public function.
         if ok {
             // Truncate file name at last file name separator.
             if index := strings.LastIndex(file, "/"); index >= 0 {
@@ -41,7 +41,7 @@ func NewCachedFileLine() func(key string) string {
 }
 
 func FileLine() string {
-    _, file, line, ok := runtime.Caller(2) // decorate + log + public function.
+    _, file, line, ok := runtime.Caller(1) // decorate + log + public function.
     if ok {
         // Truncate file name at last file name separator.
         if index := strings.LastIndex(file, "/"); index >= 0 {

@@ -1,10 +1,10 @@
 package ioutil
 
 import (
+	"bufio"
 	"io"
 	"os"
 	"regexp"
-	"bufio"
 )
 
 func GrepFromReader(r io.Reader, regstr string) (lines []string, err error) {
