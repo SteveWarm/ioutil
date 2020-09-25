@@ -7,7 +7,7 @@ import (
     "sync/atomic"
     "time"
 
-    "github.com/golang/time/rate"
+    "golang.org/x/time/rate"
 )
 
 type StopCallBackFunc func(e1, e2 error)
