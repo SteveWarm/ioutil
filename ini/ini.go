@@ -42,6 +42,7 @@ func parse(r io.Reader, filename string) (dict Dict, err error) {
     reader := bufio.NewReader(r)
     lineno := 0
     section := ""
+    dict = make(Dict)
     dict[section] = make(map[string]string)
 
     for err == nil {
