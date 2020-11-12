@@ -15,7 +15,7 @@ type Eth struct {
 }
 
 // 获取本地所有活跃的网卡信息
-func LocalLiveEths() ([]Eth, error) {
+func LiveEths() ([]Eth, error) {
     infs, err := net.Interfaces()
     if err != nil {
         return nil, err
