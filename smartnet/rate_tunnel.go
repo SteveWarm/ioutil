@@ -10,7 +10,7 @@ import (
     "golang.org/x/time/rate"
 )
 
-type StopCallBackFunc func(e1, e2 error)
+type StopCallBackFunc = func(e1, e2 error)
 
 type CopyConfig struct {
     Limiter      *rate.Limiter
