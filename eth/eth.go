@@ -12,6 +12,7 @@ type Eth struct {
     IP4Addr      []string
     IP4IntAddr   []uint32
     HardwareAddr string
+    Flags        net.Flags
 }
 
 // 获取本地所有活跃的网卡信息
@@ -25,6 +26,7 @@ func LiveEths() ([]Eth, error) {
     for _, inf := range infs {
         if (inf.Flags & net.FlagUp) != 0 {
             eth := Eth{}
+            eth.Flags = inf.Flags
             eth.Name = inf.Name
             eth.HardwareAddr = inf.HardwareAddr.String()
 
