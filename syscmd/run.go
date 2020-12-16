@@ -25,6 +25,10 @@ const (
     ErrCmdNotFound Error = 1
 )
 
+const (
+    ExitStatusOK = "exit status 0"
+)
+
 // 运行一段命令
 // Args: cmdline
 // Return: stat stdout errout error
@@ -38,13 +42,13 @@ func RunStr(cmdline string) (string, string, string, error) {
         args = append(args, a)
     }
 
-    return RunArgs(args)
+    return RunArgs(args...)
 }
 
 // 运行一段命令，将入参拆解
 // Args: cmdline
 // Return: stat stdout errout error
-func RunArgs(args []string) (string, string, string, error) {
+func RunArgs(args ...string) (string, string, string, error) {
     fileInfo, err := os.Stat(args[0])
     if err == nil {
         if fileInfo.IsDir() {
