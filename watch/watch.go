@@ -21,10 +21,7 @@ func (me Watch) String() string {
 
 /*
 example:
-
 w:=Watch(time.Now())
-
+defer log.Info("us", w)
 do something ...
-
-log.Warn("us", w)
 */
