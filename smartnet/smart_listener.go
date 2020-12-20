@@ -116,7 +116,7 @@ func (this *SmartListener) Addr() net.Addr {
 }
 
 func (this *SmartListener) Close() error {
-    this.logger.Printf(this.Addr().String(), "listener close")
+    this.logger.Printf("%s listener close", this.Addr().String())
     this.rawListener.Close()
 
     // 强行消费 防止handleConn阻塞
@@ -129,23 +129,23 @@ func (this *SmartListener) Close() error {
                 }
                 if c != nil {
                     c.Close()
-                    this.logger.Printf("force close connection %s <-> %s", c.RemoteAddr(), c.LocalAddr())
+                    this.logger.Printf("force close etx conn %s <-> %s", c.RemoteAddr(), c.LocalAddr())
                 }
-            case c, ok := <-this.extCh:
+            case c, ok := <-this.httpCh:
                 if !ok {
                     return
                 }
                 if c != nil {
                     c.Close()
-                    this.logger.Printf("force close connection %s <-> %s", c.RemoteAddr(), c.LocalAddr())
+                    this.logger.Printf("force close http conn %s <-> %s", c.RemoteAddr(), c.LocalAddr())
                 }
-            case c, ok := <-this.extCh:
+            case c, ok := <-this.socks5Ch:
                 if !ok {
                     return
                 }
                 if c != nil {
                     c.Close()
-                    this.logger.Printf("force close connection %s <-> %s", c.RemoteAddr(), c.LocalAddr())
+                    this.logger.Printf("force close socks conn %s <-> %s", c.RemoteAddr(), c.LocalAddr())
                 }
             }
         }
@@ -153,10 +153,16 @@ func (this *SmartListener) Close() error {
 
     // 等待所有连接释放
     for {
-        if atomic.LoadInt64(&this.listenerNums) > 0 || atomic.LoadInt64(&this.connRunableNums) > 0 {
-            time.Sleep(time.Second)
+        if atomic.LoadInt64(&this.listenerNums) <= 0 && atomic.LoadInt64(&this.connRunableNums) <= 0 {
+            break
         }
+        this.logger.Printf("listenerNums: %d connRunableNums: %d",
+            atomic.LoadInt64(&this.listenerNums),
+            atomic.LoadInt64(&this.connRunableNums))
+        time.Sleep(time.Second)
     }
+
+    this.logger.Printf("%s to be close", this.Addr().String())
 
     close(this.extCh)
     close(this.httpCh)
