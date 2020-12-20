@@ -29,6 +29,11 @@ func Parse(data []byte) (Dict, error) {
     return parse(reader, "data")
 }
 
+func ParseString(data string) (Dict, error) {
+    reader := strings.NewReader(data)
+    return parse(reader, "data")
+}
+
 func Load(filename string) (Dict, error) {
     file, err := os.Open(filename)
     if err != nil {
