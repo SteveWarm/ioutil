@@ -51,3 +51,8 @@ log.Warn("some thing wrong",_fileline_("2.push.jjj.com"))
 // 低频使用
 log.Warn("some thing wrong",ioutil.FileLine())
 ```
+
+
+# weixinmp
+
+微信公众平台开发接口封装
