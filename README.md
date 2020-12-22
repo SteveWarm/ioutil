@@ -4,7 +4,7 @@ golang io工具集,从原生函数上提炼通用的io功能，方便成组合�
 
 # ini
 
-ini格式解析和序列化
+ini格式解析和序列化，直接访问字典方便通过前缀实现类数组配置
 
 ## 样例
 
@@ -56,3 +56,31 @@ log.Warn("some thing wrong",ioutil.FileLine())
 # weixinmp
 
 微信公众平台开发接口封装
+
+# watch
+
+计时器；利用String反射自动调用计时。
+
+## 样例
+
+```
+w:=Watch(time.Now())
+defer log.Info("us", w)
+do something ...
+```
+
+# syscmd
+
+调用系统命令封装，自动查找第一个启动应用
+
+# eth
+
+读取本机ip信息
+
+# cgroup
+
+cgroup尝试，通过cgroup限制进程的内存cpu等使用
+
+# httpclient
+
+支持http http2 ssl认证 ssl双向认证 Cookies的HttpClient封装
